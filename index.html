@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: #b96000;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .reveal-text {
+            font-size: 2em;
+            margin-bottom: -20px;
+        }
+        .reveal-text1 {
+            font-size: 5em;
+        }
+        .countdown {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="reveal-text">
+            WORLDWIDE REVEAL
+        </div>
+        <div class="reveal-text1">
+            JUNE 09
+        </div>
+        <div class="countdown" id="countdown">
+            <!-- Сюда будет вставлен обратный отсчёт -->
+        </div>
+    </div>
+
+    <script>
+        // Установка конечной даты и времени
+        var countDownDate = new Date("July 9, 2024 23:00:00").getTime();
+
+        // Обновление обратного отсчёта каждую секунду
+        var x = setInterval(function() {
+
+            // Получение текущей даты и времени
+            var now = new Date().getTime();
+
+            // Разница между текущей датой и конечной датой
+            var distance = countDownDate - now;
+
+            // Вычисление дней, часов, минут и секунд
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Вывод обратного отсчёта
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+            // Если обратный отсчёт завершён, вывести текст
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
