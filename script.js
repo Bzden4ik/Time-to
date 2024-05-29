@@ -1,5 +1,5 @@
 function updateCountdown() {
-    var countDownDate = new Date("June 9, 2024 23:00:00").getTime();
+    var countDownDate = new Date("June 9, 2024 10:00:00 GMT-0700").getTime();
     var now = new Date().getTime();
     var distance = countDownDate - now;
 
