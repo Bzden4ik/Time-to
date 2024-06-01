@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Видео и звук</title>
+</head>
+<body>
+    <video id="video" width="640" height="360" muted autoplay>
+        <source src="video.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <audio id="audio">
+        <source src="sound.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+    <audio id="silentAudio" autoplay>
+        <source src="sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const silentAudio = document.getElementById('silentAudio');
+            const audioElement = document.getElementById('audio');
+
+            silentAudio.play().then(() => {
+                // Инициализация завершена, теперь можем попытаться воспроизвести основное аудио
+                audioElement.play().catch(error => {
+                    console.error("Ошибка воспроизведения аудио:", error);
+                });
+            }).catch(error => {
+                console.error("Ошибка воспроизведения бесшумного аудио:", error);
+            });
+        });
+    </script>
+</body>
+</html>
