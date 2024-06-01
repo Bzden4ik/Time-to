@@ -1,5 +1,5 @@
 function updateCountdown() {
-    var countDownDate = new Date("June 9, 2024 10:00:00 GMT-0700").getTime();
+    var countDownDate = new Date("June 9, 2024 21:00:00 GMT+0300").getTime();
     var now = new Date().getTime();
     var distance = countDownDate - now;
 
@@ -7,14 +7,39 @@ function updateCountdown() {
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    var milliseconds = distance % 1000;
-
-    document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
     if (distance < 0) {
         clearInterval(x);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
+        clearInterval(y);
+        showPlayers();
+    } else if (distance <= 30000) {
+        clearInterval(y);
+        document.querySelector('.reveal-text').classList.add('fade-out');
+        document.querySelector('.reveal-text1').classList.add('fade-out');
+        document.getElementById("countdown").classList.add('large');
+        document.getElementById("countdown").innerHTML = seconds + "s";
+    } else {
+        document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     }
+
+    if (distance <= 11000 && distance > 10000) {
+        document.getElementById("countdown").classList.add('fade-out');
+    }
+
+    if (distance <= 10000 && distance > 0) {
+        playVideo();
+    }
+}
+
+function playVideo() {
+    var video = document.getElementById("background-video");
+    var countdown = document.getElementById("countdown");
+
+    video.style.display = "block";
+    countdown.style.opacity = "0";
+    video.play().catch(error => {
+        console.log("Error playing video:", error);
+    });
 }
 
 let usedPositions = [];
@@ -92,15 +117,30 @@ function displayMilliseconds() {
     var milliseconds = now % 1000;
     showHandwrittenText(milliseconds);
 
-    const randomTime = Math.floor(Math.random() * 450); // случайное время от 200 до 700 миллисекунд
-    setTimeout(displayMilliseconds, randomTime);
+    const randomTime = Math.floor(Math.random() * 450);
+    y = setTimeout(displayMilliseconds, randomTime);
 }
 
-// Первоначальное обновление обратного отсчёта
+function showPlayers() {
+    document.getElementById("container").style.display = "none";
+    const players = document.getElementById("players");
+    players.style.display = "flex";
+    document.getElementById("twitch-button").disabled = false;
+    document.getElementById("youtube-button").disabled = false;
+    setTimeout(() => {
+        players.classList.add('show');
+    }, 100); // small delay to ensure display change before opacity transition
+}
+
+function openStream(platform) {
+    if (platform === 'twitch') {
+        window.open('https://www.twitch.tv/Xbox', '_blank');
+    } else if (platform === 'youtube') {
+        window.open('https://www.youtube.com/@xbox/videos', '_blank');
+    }
+}
+
 updateCountdown();
 
-// Обновление обратного отсчёта каждую секунду
 var x = setInterval(updateCountdown, 1000);
-
-// Запуск отображения миллисекунд
-displayMilliseconds();
+var y = setTimeout(displayMilliseconds, 200);
