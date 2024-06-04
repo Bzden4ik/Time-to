@@ -1,35 +1,35 @@
-    function updateCountdown() {
-        var countDownDate = new Date("June 9, 2024 21:00:00 GMT+0300").getTime();
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
+function updateCountdown() {
+    var countDownDate = new Date("June 9, 2024 21:00:00 GMT+0300").getTime();
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
 
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));  // Исправленная строка
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        if (distance < 0) {
-            clearInterval(x);
-            clearInterval(y);
-            showPlayers();
-        } else if (distance <= 30000) {
-            clearInterval(y);
-            document.querySelector('.reveal-text').classList.add('fade-out');
-            document.querySelector('.reveal-text1').classList.add('fade-out');
-            document.getElementById("countdown").classList.add('large');
-            document.getElementById("countdown").innerHTML = seconds + "s";
-        } else {
-            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-        }
-
-        if (distance <= 11000 && distance > 10000) {
-            document.getElementById("countdown").classList.add('fade-out');
-        }
-
-        if (distance <= 10000 && distance > 0) {
-            playVideo();
-        }
+    if (distance < 0) {
+        clearInterval(x);
+        clearInterval(y);
+        showPlayers();
+    } else if (distance <= 30000) {
+        clearInterval(y);
+        document.querySelector('.reveal-text').classList.add('fade-out');
+        document.querySelector('.reveal-text1').classList.add('fade-out');
+        document.getElementById("countdown").classList.add('large');
+        document.getElementById("countdown").innerHTML = seconds + "s";
+    } else {
+        document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     }
+
+    if (distance <= 11000 && distance > 10000) {
+        document.getElementById("countdown").classList.add('fade-out');
+    }
+
+    if (distance <= 10000 && distance > 0) {
+        playVideo();
+    }
+}
 
     function playVideo() {
         var video = document.getElementById("background-video");
